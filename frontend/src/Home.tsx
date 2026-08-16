@@ -51,8 +51,6 @@ export function Home({ onEnter }: { onEnter: (session: Session) => void }) {
         <div className="rule my-4" />
 
         <p className="text-ink-soft">
-          Everyone in the room is asked the same question.
-          <br />
           One person is asked something else — and doesn't know it yet.
         </p>
         <p className="mt-3 text-sm italic text-ink-faint">
@@ -69,18 +67,18 @@ export function Home({ onEnter }: { onEnter: (session: Session) => void }) {
             maxLength={16}
             onChange={(e) => setName(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && ready && open()}
-            placeholder="last name"
+            placeholder="Detective Smith"
             autoFocus
           />
         </div>
 
         <button className={`${styles.key} mt-5 w-full py-3`} disabled={!ready} onClick={open}>
-          Open a new case
+          Start a new case
         </button>
 
         <div className="my-5 flex items-center gap-3">
           <span className="rule flex-1" />
-          <span className={styles.field}>or report to an existing one</span>
+          <span className={styles.field}>or Join an existing one</span>
           <span className="rule flex-1" />
         </div>
 

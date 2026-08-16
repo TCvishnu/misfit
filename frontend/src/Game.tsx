@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { api, type ChatMessage, type RoomView } from './api'
 import type { Session } from './Home'
 import { Badge, CaseProgress, Sheet, Stamp, phaseLabel, styles } from './ui'
+import LoadingDots from './loading-dots'
 
 type Round = NonNullable<RoomView['round']>
 
@@ -74,7 +75,7 @@ export function Game({ session, onExit }: { session: Session; onExit: () => void
           className="text-sm text-paper-3/70 underline underline-offset-4 hover:text-paper"
           onClick={onExit}
         >
-          withdraw
+          Leave Case
         </button>
       </div>
 
@@ -150,7 +151,7 @@ export function Game({ session, onExit }: { session: Session; onExit: () => void
           {view.status === 'waiting' && (
             <Sheet tilt={0.4} className="text-center">
               <div className={styles.field}>Notice</div>
-              <p className="typed mt-2 text-xl text-ink">Awaiting personnel</p>
+              <p className="typed mt-2 text-xl text-ink">Awaiting personnel<LoadingDots /> </p>
               <p className="mt-2 text-ink-soft">
                 {view.players.length < 2
                   ? 'Pass the case number to at least one other officer.'
@@ -349,11 +350,11 @@ function Statement({
   if (round.you_answered) {
     return (
       <Sheet tilt={0.3} className="text-center">
-        <Stamp tone="pen">On record</Stamp>
-        <p className="mt-4 text-ink-soft">
+        <Stamp tone="pen">Recorded</Stamp>
+        <p className="mt-4 text-ink-soft w-full">
           {round.answered_count} of {view.players.length} statements taken.
           {round.answered_count < view.players.length && (
-            <span className="caret"> awaiting the rest</span>
+            <span className=""> awaiting the rest <LoadingDots /></span>
           )}
         </p>
       </Sheet>
