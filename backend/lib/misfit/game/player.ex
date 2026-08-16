@@ -1,15 +1,23 @@
 defmodule Misfit.Game.Player do
-  defstruct [:name, :player_code]
+  @type t :: %__MODULE__{
+          name: String.t(),
+          player_code: String.t(),
+          score: non_neg_integer()
+        }
 
+  defstruct [:name, :player_code, score: 0]
+
+  @spec new(String.t()) :: t()
   def new(name) do
-    %Misfit.Game.Player{
-      name: name,
-      player_code: generate_player_code()
-    }
+    %__MODULE__{name: name, player_code: generate_player_code()}
+  end
+
+  @spec add_score(t(), integer()) :: t()
+  def add_score(%__MODULE__{} = player, points) do
+    %__MODULE__{player | score: player.score + points}
   end
 
   defp generate_player_code do
-    random = Base.encode16(:crypto.strong_rand_bytes(4))
-    "player_" <> random
+    "player_" <> Base.encode16(:crypto.strong_rand_bytes(4))
   end
 end
