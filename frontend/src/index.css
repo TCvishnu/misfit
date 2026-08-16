@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -6,24 +6,34 @@
   --color-desk: #12100d;
   --color-desk-2: #1c1813;
 
-  /* The documents themselves. */
-  --color-paper: #e7e0ce;
-  --color-paper-2: #d8cfb8;
-  --color-paper-3: #c4b99e;
+  /* The documents themselves — brightened for contrast against the ink. */
+  --color-paper: #efe9da;
+  --color-paper-2: #e0d8c3;
+  --color-paper-3: #cabfa4;
 
-  /* Things written on them. */
-  --color-ink: #23201a;
-  --color-ink-soft: #5d564a;
-  --color-ink-faint: #8b8271;
-  --color-stamp: #b3241f;
-  --color-pen: #2f4b6e;
-  --color-verdict: #2f6b3f;
+  /* Things written on them. Muted tones are darkened so they still pass
+     against paper; the old values sat near 2.7:1 and were unreadable. */
+  --color-ink: #1c1915;
+  --color-ink-soft: #464036;
+  --color-ink-faint: #6b6355;
+  --color-stamp: #a81f1a;
+  --color-pen: #27456b;
+  --color-verdict: #245c33;
 
   --font-display: 'Special Elite', 'Courier Prime', ui-monospace, monospace;
   --font-body: 'Courier Prime', ui-monospace, monospace;
 
+  /* Courier has a small x-height, so the whole ramp runs larger than default. */
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.125rem;
+  --text-4xl: 2.5rem;
+
   --shadow-sheet: 0 10px 26px rgba(0, 0, 0, 0.6), 0 2px 0 rgba(0, 0, 0, 0.4);
-  --shadow-lift: 0 16px 34px rgba(0, 0, 0, 0.7);
 }
 
 html {
@@ -35,54 +45,55 @@ body {
   min-height: 100dvh;
   background-color: var(--color-desk);
   background-image:
-    radial-gradient(70rem 50rem at 50% -20rem, rgba(255, 230, 180, 0.06), transparent 70%),
+    radial-gradient(70rem 50rem at 50% -20rem, rgba(255, 232, 186, 0.07), transparent 70%),
     radial-gradient(50rem 40rem at 50% 120%, rgba(0, 0, 0, 0.6), transparent 60%);
   background-attachment: fixed;
-  color: var(--color-paper);
+  color: var(--color-paper-2);
   font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 18px;
+  line-height: 1.6;
 }
 
-/* Paper grain, applied to sheets rather than the whole page. */
+/*
+  Special Elite is distressed and only legible in short bursts — it is reserved
+  for stamps, the wordmark and the case number. Emphasis everywhere else is
+  bold Courier, which keeps the typewriter feel without costing readability.
+*/
+.stamped {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+
+.typed {
+  font-weight: 700;
+  letter-spacing: 0.005em;
+}
+
 .paper {
   background-color: var(--color-paper);
   color: var(--color-ink);
   background-image:
     repeating-linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.018) 0px,
-      rgba(0, 0, 0, 0.018) 1px,
+      rgba(0, 0, 0, 0.012) 0px,
+      rgba(0, 0, 0, 0.012) 1px,
       transparent 1px,
-      transparent 4px
+      transparent 5px
     ),
-    radial-gradient(circle at 18% 12%, rgba(120, 96, 60, 0.1), transparent 45%),
-    radial-gradient(circle at 82% 88%, rgba(120, 96, 60, 0.09), transparent 45%);
+    radial-gradient(circle at 18% 12%, rgba(120, 96, 60, 0.055), transparent 45%),
+    radial-gradient(circle at 82% 88%, rgba(120, 96, 60, 0.05), transparent 45%);
   box-shadow: var(--shadow-sheet);
 }
 
-/* Manila folder stock, for secondary surfaces. */
-.folder {
-  background-color: var(--color-paper-2);
-  color: var(--color-ink);
-  box-shadow: var(--shadow-sheet);
-}
-
-.typed {
-  font-family: var(--font-display);
-  letter-spacing: 0.02em;
-}
-
-/* Rubber stamp: outlined, rotated, slightly bled. */
 .stamp {
   font-family: var(--font-display);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   border: 3px solid currentColor;
-  padding: 0.35rem 0.9rem;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8125rem;
   transform: rotate(-6deg);
-  opacity: 0.88;
-  mix-blend-mode: multiply;
+  opacity: 0.92;
 }
 
 .redacted {
@@ -92,7 +103,6 @@ body {
   border-radius: 1px;
 }
 
-/* Torn edge along the bottom of a sheet. */
 .torn {
   -webkit-mask-image: linear-gradient(#000 calc(100% - 10px), transparent calc(100% - 10px)),
     radial-gradient(6px 10px at 12px 100%, transparent 98%, #000 100%);
@@ -107,7 +117,7 @@ body {
 }
 
 .rule {
-  border-bottom: 1px dashed var(--color-ink-faint);
+  border-bottom: 1px dashed rgba(107, 99, 85, 0.55);
 }
 
 ::selection {
@@ -127,7 +137,7 @@ body {
 @keyframes slam {
   0% { opacity: 0; transform: rotate(-6deg) scale(2.4); }
   70% { opacity: 1; transform: rotate(-6deg) scale(0.94); }
-  100% { opacity: 0.88; transform: rotate(-6deg) scale(1); }
+  100% { opacity: 0.92; transform: rotate(-6deg) scale(1); }
 }
 
 @keyframes caret {
@@ -137,10 +147,7 @@ body {
 
 .sheet-in { animation: slide-in 0.28s ease-out both; }
 .slam { animation: slam 0.4s cubic-bezier(0.2, 0.9, 0.2, 1) both; }
-.caret::after {
-  content: '_';
-  animation: caret 1s steps(1) infinite;
-}
+.caret::after { content: '_'; animation: caret 1s steps(1) infinite; }
 
 .stagger > * { animation: slide-in 0.28s ease-out both; }
 .stagger > *:nth-child(2) { animation-delay: 0.06s; }

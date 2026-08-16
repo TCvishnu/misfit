@@ -2,15 +2,15 @@ import type { Phase } from './api'
 
 export const styles = {
   input:
-    'w-full border-b-2 border-ink-faint bg-transparent px-1 py-2 font-body text-ink placeholder-ink-faint outline-none transition focus:border-stamp',
-  key: 'typed border-2 border-ink bg-paper-2 px-4 py-2 text-sm uppercase tracking-[0.12em] text-ink shadow-[3px_3px_0_0_var(--color-ink)] transition active:translate-x-[3px] active:translate-y-[3px] active:shadow-none disabled:cursor-not-allowed disabled:border-ink-faint disabled:text-ink-faint disabled:shadow-none',
+    'w-full border-b-2 border-ink-faint bg-transparent px-1 py-2 text-base text-ink placeholder-ink-faint outline-none transition focus:border-stamp',
+  key: 'typed border-2 border-ink bg-paper-2 px-4 py-2 text-sm uppercase tracking-[0.1em] text-ink shadow-[3px_3px_0_0_var(--color-ink)] transition active:translate-x-[3px] active:translate-y-[3px] active:shadow-none disabled:cursor-not-allowed disabled:border-ink-faint disabled:text-ink-faint disabled:shadow-none',
   keyDark:
-    'typed border-2 border-paper-3 bg-transparent px-3 py-1.5 text-xs uppercase tracking-[0.12em] text-paper-3 transition hover:border-paper hover:text-paper disabled:opacity-40',
-  field: 'typed text-[10px] uppercase tracking-[0.22em] text-ink-faint',
-  fieldDark: 'typed text-[10px] uppercase tracking-[0.22em] text-paper-3/60',
+    'typed border-2 border-paper-3 bg-transparent px-3 py-1.5 text-xs uppercase tracking-[0.1em] text-paper-2 transition hover:border-paper hover:text-paper disabled:opacity-40',
+  /* Field labels: small caps, but dark enough and loose enough to actually read. */
+  field: 'typed text-xs uppercase tracking-[0.14em] text-ink-soft',
+  fieldDark: 'typed text-xs uppercase tracking-[0.14em] text-paper-3',
 }
 
-/** Case-file label for each round phase. */
 const PHASES: { key: Phase; label: string }[] = [
   { key: 'answering', label: 'Statements' },
   { key: 'reveal_main_question', label: 'Disclosure' },
@@ -31,17 +31,17 @@ export function CaseProgress({ phase }: { phase: Phase }) {
       {PHASES.map((p, i) => (
         <span key={p.key} className="flex items-center gap-2">
           <span
-            className={`typed text-[10px] uppercase tracking-[0.18em] ${
+            className={`typed text-xs uppercase tracking-[0.1em] ${
               i === active
                 ? 'text-stamp'
                 : i < active
                   ? 'text-ink-faint line-through'
-                  : 'text-ink-faint/45'
+                  : 'text-ink-faint/70'
             }`}
           >
             {p.label}
           </span>
-          {i < PHASES.length - 1 && <span className="text-ink-faint/40">·</span>}
+          {i < PHASES.length - 1 && <span className="text-ink-faint/60">·</span>}
         </span>
       ))}
     </div>
@@ -61,16 +61,16 @@ export function Badge({
   flagged?: boolean
 }) {
   const box = {
-    sm: 'size-7 text-[10px]',
-    md: 'size-9 text-xs',
-    lg: 'size-14 text-base',
+    sm: 'size-8 text-xs',
+    md: 'size-10 text-sm',
+    lg: 'size-14 text-lg',
   }[size]
 
   return (
     <span
       title={name}
       className={`${box} typed grid shrink-0 place-items-center border-2 ${
-        flagged ? 'border-stamp text-stamp' : 'border-ink/50 text-ink/80'
+        flagged ? 'border-stamp text-stamp' : 'border-ink/60 text-ink'
       }`}
       style={{ background: tintOf(code) }}
     >
@@ -79,7 +79,7 @@ export function Badge({
   )
 }
 
-const TINTS = ['#d8cfb8', '#cfc4ab', '#dcd0b4', '#c9c0a8', '#d5c9ae', '#cdc5b2']
+const TINTS = ['#ddd3ba', '#d6cbb0', '#e2d7bb', '#cfc6ae', '#dacfb4', '#d3cbb8']
 
 function tintOf(seed: string) {
   let hash = 0

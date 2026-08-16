@@ -43,7 +43,7 @@ export function Home({ onEnter }: { onEnter: (session: Session) => void }) {
         <div className="flex items-start justify-between">
           <div>
             <div className={styles.field}>Department of Internal Affairs</div>
-            <h1 className="typed mt-2 text-4xl leading-none tracking-tight text-ink">MISFIT</h1>
+            <h1 className="stamped mt-2 text-4xl leading-none tracking-tight text-ink">MISFIT</h1>
           </div>
           <Stamp>Confidential</Stamp>
         </div>
