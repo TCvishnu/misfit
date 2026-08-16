@@ -11,6 +11,8 @@ defmodule Misfit.Application do
       MisfitWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:misfit, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Misfit.PubSub},
+      # THROWAWAY dev scaffolding — see Misfit.DevHarness.Store.
+      Misfit.DevHarness.Store,
       # Start a worker by calling: Misfit.Worker.start_link(arg)
       # {Misfit.Worker, arg},
       # Start to serve requests, typically the last entry

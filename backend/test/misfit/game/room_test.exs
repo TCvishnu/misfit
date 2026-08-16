@@ -201,7 +201,7 @@ defmodule Misfit.Game.RoomTest do
       room = started(["A", "B", "C"])
       round = Room.current_round(room)
 
-      for phase <- [:answering, :reveal, :discussion, :voting] do
+      for phase <- [:answering, :reveal_main_question, :discussion, :voting] do
         room = advance_to(room, phase)
 
         for code <- codes(room) do
@@ -226,7 +226,7 @@ defmodule Misfit.Game.RoomTest do
       assert Room.view_for(room, a).round.answers == []
       assert Room.view_for(room, a).round.answered_count == 2
 
-      room = advance_to(room, :reveal)
+      room = advance_to(room, :reveal_main_question)
       view = Room.view_for(room, a)
 
       assert length(view.round.answers) == 2

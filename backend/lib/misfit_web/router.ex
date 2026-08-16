@@ -5,8 +5,20 @@ defmodule MisfitWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # THROWAWAY dev scaffolding — remove with MisfitWeb.DevHarnessController.
   scope "/api", MisfitWeb do
     pipe_through :api
+
+    post "/rooms", DevHarnessController, :create
+    get "/rooms/:code", DevHarnessController, :show
+    post "/rooms/:code/join", DevHarnessController, :join
+    post "/rooms/:code/leave", DevHarnessController, :leave
+    post "/rooms/:code/start", DevHarnessController, :start
+    post "/rooms/:code/answer", DevHarnessController, :answer
+    post "/rooms/:code/chat", DevHarnessController, :chat
+    post "/rooms/:code/vote", DevHarnessController, :vote
+    post "/rooms/:code/advance", DevHarnessController, :advance
+    post "/rooms/:code/next_round", DevHarnessController, :next_round
   end
 
   # Enable LiveDashboard in development
