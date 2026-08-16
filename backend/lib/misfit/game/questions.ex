@@ -206,7 +206,7 @@ defmodule Misfit.Game.Questions do
     ]
   end
 
-  def get_random_question do
+  def random_question do
     Enum.random(questions())
   end
 end
